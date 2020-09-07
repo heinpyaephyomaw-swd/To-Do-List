@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>aaa</title>
+</head>
+<body>
+  <div class="parent">
+    <div>
+      <input type="text" name="" id="text">
+      <button onclick="add()">Click</button>
+    </div>
+        <ol id="list"></ol>
+
+  </div>
+      <script type="text/javascript">
+        let input = document.getElementById('text');
+        let list = document.getElementById('list');
+        let min_text = 3;
+        let id = 1;
+
+        function editText(listId){
+         let current = document.getElementById(`List_text ${listId}`);
+         let newText = prompt("Enter New Edit Text",current.innerHTML);
+
+         if(filterText(newText)){
+            current.innerHTML = newText;
+         }else{
+            console.log('error');
+           }
+        
+        };
+
+        function deleteText(listId){
+          let current_text = document.getElementById(`List_text ${listId}`).innerHTML;
+          let current = document.getElementById(`list ${listId}`);
+          let deleteConfirm = confirm(`Are You Sure Delete? ${current_text}`);
+          if(deleteConfirm){
+            
+              list.removeChild(current);
+          }else{
+            console.log("delete Cancel");
+          }
+            
+        }
+
+        function listText(a){
+          list.innerHTML += `<li id="list ${id}">
+                         <button onclick="deleteText(${id})">del</button>
+                         <button onclick="editText(${id})">edit</button>
+                         <span id="List_text ${id}">${a}</span>
+                         </li>`;
+                         id++;
+        }
+
+        //filter
+
+        function filterText(filter){
+          if(filter){
+            if(filter.length>=min_text){
+                       return filter;
+            }else{
+                       alert("minium text is 3");
+            }
+          }else{
+               alert("Cant get Empty text");
+          }
+
+        }
+
+           //button
+              
+        function add(){
+        let a = filterText(input.value);
+           if(a){
+                 listText(a);
+                 input.value = "";
+               console.log (a);
+        }
+           }
+      </script>
+
+</body>
+</html>
